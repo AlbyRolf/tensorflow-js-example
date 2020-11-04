@@ -9,29 +9,49 @@
                 width: auto;
                 margin: 0 auto;
             }
+            .prediction-span {
+            	width: 224px;
+    			height: 224px;
+    			font-size: 150px;
+            }
+            .center-inside {
+            	width: fit-content; 
+            	margin: 0 auto;
+            }
         </style>
     </head>
     <body>
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" data-show="true">
-            <div class="modal-dialog modal-dialog-centered mw-100 w-25">
+            <div class="modal-dialog modal-dialog-centered" style="min-width:550px; ">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Modal title</h5>
+                        <h5 class="modal-title">Number recognition</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div class="align-center">
-                            <div class="align-center">
-                                <video autoplay playsinline muted id="camera" width="280" height="280"></video>
+                    	<div class="row">
+                            <div class="col-md-6 ml-auto align-center">
+                                <div class="align-center">
+		                            <div class="center-inside">
+		                                <video autoplay playsinline muted id="camera" width="224" height="224"></video>
+		                            </div>
+		                        </div>
+                            </div>
+                            <div class="col-md-6 ml-auto align-center">
+                            	<div class="align-center">
+		                            <div class="center-inside">
+                                 		<span class="badge badge-primary prediction-span" id="prediction">0</span>
+                                 	</div>
+		                        </div>
                             </div>
                         </div>
                     </div>
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-6 ml-auto align-center">
-                                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                <div class="center-inside">
                                     <button type="button" id="0" class="btn btn-outline-primary" onclick="handleButton(this)">0</button>
                                     <button type="button" id="1" class="btn btn-outline-primary" onclick="handleButton(this)">1</button>
                                     <button type="button" id="2" class="btn btn-outline-primary" onclick="handleButton(this)">2</button>
@@ -40,7 +60,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6 ml-auto align-center">
-                                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                <div class="center-inside">
                                     <button type="button" id="5" class="btn btn-outline-primary" onclick="handleButton(this)">5</button>
                                     <button type="button" id="6" class="btn btn-outline-primary" onclick="handleButton(this)">6</button>
                                     <button type="button" id="7" class="btn btn-outline-primary" onclick="handleButton(this)">7</button>
@@ -105,7 +125,7 @@
                 </div>
             </div>
         </div>
-        <span class="badge badge-primary" id="prediction"></span>
+        
     </body>
     <script src="example.js"></script>
     <script>

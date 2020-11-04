@@ -43,7 +43,7 @@ async function setup() {
             navigator.msGetUserMedia;
         if (navigator.getUserMedia) {
             navigator.getUserMedia(
-                {video: {width: 360, height: 360}},
+                {video: {width: 224, height: 224}},
                 stream => {
                     webcamElement.srcObject = stream;
                     webcamElement.addEventListener('loadeddata', async () => {
@@ -142,7 +142,7 @@ async function predict() {
             return predictions.as1D().argMax();
         });
         const classId = (await predictedClass.data())[0];
-        document.getElementById("prediction").innerText = "I see " + classId;
+        document.getElementById("prediction").innerText = classId;
         predictedClass.dispose();
         await tf.nextFrame();
     }
