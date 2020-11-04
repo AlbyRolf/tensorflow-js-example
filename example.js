@@ -79,14 +79,12 @@ function encodeLabels(numClasses) {
         if (ys == null) {
             ys = tf.keep(tf.tidy(
                 () => {
-                    return tf.oneHot(
-                        tf.tensor1d([labels[i]]).toInt(), numClasses)
+                    return tf.oneHot(tf.tensor1d([labels[i]]).toInt(), numClasses)
                 }));
         } else {
             const y = tf.tidy(
                 () => {
-                    return tf.oneHot(
-                        tf.tensor1d([labels[i]]).toInt(), numClasses)
+                    return tf.oneHot(tf.tensor1d([labels[i]]).toInt(), numClasses)
                 });
             const oldY = ys;
             ys = tf.keep(oldY.concat(y, 0));
@@ -173,7 +171,6 @@ function saveModel() {
 async function init() {
     await setup();
     await loadMobilenet();
-    tf.tidy(() => mobilenet.predict(capture()));
 }
 
 init();
