@@ -43,7 +43,7 @@ async function setup() {
             navigator.msGetUserMedia;
         if (navigator.getUserMedia) {
             navigator.getUserMedia(
-                {video: {width: 224, height: 224}},
+                {video: {width: 360, height: 360}},
                 stream => {
                     webcamElement.srcObject = stream;
                     webcamElement.addEventListener('loadeddata', async () => {
@@ -128,7 +128,7 @@ async function train() {
 function handleButton(elem) {
     let label = parseInt(elem.id);
     array[label]++;
-    document.getElementById("samples_" + elem.id).innerText = elem.id + ": " + array[label];
+    document.getElementById("samples_" + elem.id).innerText = "" + array[label];
     const img = capture();
     addExample(mobilenet.predict(img), label);
 }
