@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    </head>
+    <body>
+        <div>
+            <div>
+                <video autoplay playsinline muted id="camera" width="224" height="224"></video>
+            </div>
+        </div>
+        <button type="button" id="0" onclick="handleButton(this)">0</button>
+        <button type="button" id="1" onclick="handleButton(this)">1</button>
+        <button type="button" id="2" onclick="handleButton(this)">2</button>
+        <button type="button" id="3" onclick="handleButton(this)">3</button>
+        <button type="button" id="4" onclick="handleButton(this)">4</button>
+        <button type="button" id="5" onclick="handleButton(this)">5</button>
+        <button type="button" id="6" onclick="handleButton(this)">6</button>
+        <button type="button" id="7" onclick="handleButton(this)">7</button>
+        <button type="button" id="8" onclick="handleButton(this)">8</button>
+        <button type="button" id="9" onclick="handleButton(this)">9</button>
+        <div id="samples_0">0: </div>
+        <div id="samples_1">1: </div>
+        <div id="samples_2">2: </div>
+        <div id="samples_3">3: </div>
+        <div id="samples_4">4: </div>
+        <div id="samples_5">5: </div>
+        <div id="samples_6">6: </div>
+        <div id="samples_7">7: </div>
+        <div id="samples_8">8: </div>
+        <div id="samples_9">9: </div>
+        <button type="button" id="train" onclick="doTraining()">Train Network</button>
+        <button type="button" id="startPredicting" onclick="startPredicting()">Start Predicting</button>
+        <button type="button" id="stopPredicting" onclick="stopPredicting()">Stop Predicting</button>
+        <button type="button" id="saveModel" onclick="saveModel()">Download Model</button>
+        <div id="prediction"></div>
+    </body>
+    <script src="example.js"></script>
+</html>
