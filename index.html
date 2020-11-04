@@ -7,7 +7,7 @@
     </head>
     <body>
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" data-show="true">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Modal title</h5>
@@ -22,35 +22,55 @@
                             </div>
                         </div>
                     </div>
-                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                            <button type="button" id="0" class="btn btn-outline-primary" onclick="handleButton(this)">0</button>
-                            <button type="button" id="1" class="btn btn-outline-primary" onclick="handleButton(this)">1</button>
-                            <button type="button" id="2" class="btn btn-outline-primary" onclick="handleButton(this)">2</button>
-                            <button type="button" id="3" class="btn btn-outline-primary" onclick="handleButton(this)">3</button>
-                            <button type="button" id="4" class="btn btn-outline-primary" onclick="handleButton(this)">4</button>
-                            <button type="button" id="5" class="btn btn-outline-primary" onclick="handleButton(this)">5</button>
-                            <button type="button" id="6" class="btn btn-outline-primary" onclick="handleButton(this)">6</button>
-                            <button type="button" id="7" class="btn btn-outline-primary" onclick="handleButton(this)">7</button>
-                            <button type="button" id="8" class="btn btn-outline-primary" onclick="handleButton(this)">8</button>
-                            <button type="button" id="9" class="btn btn-outline-primary" onclick="handleButton(this)">9</button>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12 ml-auto">
+                                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                        <button type="button" id="0" class="btn btn-outline-primary" onclick="handleButton(this)">0</button>
+                                        <button type="button" id="1" class="btn btn-outline-primary" onclick="handleButton(this)">1</button>
+                                        <button type="button" id="2" class="btn btn-outline-primary" onclick="handleButton(this)">2</button>
+                                        <button type="button" id="3" class="btn btn-outline-primary" onclick="handleButton(this)">3</button>
+                                        <button type="button" id="4" class="btn btn-outline-primary" onclick="handleButton(this)">4</button>
+                                        <button type="button" id="5" class="btn btn-outline-primary" onclick="handleButton(this)">5</button>
+                                        <button type="button" id="6" class="btn btn-outline-primary" onclick="handleButton(this)">6</button>
+                                        <button type="button" id="7" class="btn btn-outline-primary" onclick="handleButton(this)">7</button>
+                                        <button type="button" id="8" class="btn btn-outline-primary" onclick="handleButton(this)">8</button>
+                                        <button type="button" id="9" class="btn btn-outline-primary" onclick="handleButton(this)">9</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                        <span class="badge badge-success" id="samples_0">0: </span>
-                        <span class="badge badge-success" id="samples_1">1: </span>
-                        <span class="badge badge-success" id="samples_2">2: </span>
-                        <span class="badge badge-success" id="samples_3">3: </span>
-                        <span class="badge badge-success" id="samples_4">4: </span>
-                        <span class="badge badge-success" id="samples_5">5: </span>
-                        <span class="badge badge-success" id="samples_6">6: </span>
-                        <span class="badge badge-success" id="samples_7">7: </span>
-                        <span class="badge badge-success" id="samples_8">8: </span>
-                        <span class="badge badge-success" id="samples_9">9: </span>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <ul class="list-group">
+                                    <li class="list-group-item" id="samples_0">0</li>
+                                    <li class="list-group-item" id="samples_1">1</li>
+                                    <li class="list-group-item" id="samples_2">2</li>
+                                    <li class="list-group-item" id="samples_3">3</li>
+                                    <li class="list-group-item" id="samples_4">4</li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-6">
+                                <ul class="list-group">
+                                    <li class="list-group-item" id="samples_5">5</li>
+                                    <li class="list-group-item" id="samples_6">6</li>
+                                    <li class="list-group-item" id="samples_7">7</li>
+                                    <li class="list-group-item" id="samples_8">8</li>
+                                    <li class="list-group-item" id="samples_9">9</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-primary" id="train" onclick="doTraining()">Train Network</button>
-                        <button type="button" class="btn btn-outline-warning" id="startPredicting" onclick="startPredicting()">Start Predicting</button>
-                        <button type="button" class="btn btn-outline-warning" id="stopPredicting" onclick="stopPredicting()">Stop Predicting</button>
-                        <button type="button" class="btn btn-outline-primary" id="saveModel" onclick="saveModel()">Download Model</button>
+                        <div>
+                            <button type="button" style="width: 150px" class="btn btn-outline-primary" id="train" onclick="doTraining()">Train</button>
+                            <button type="button" style="width: 150px" class="btn btn-outline-primary" id="saveModel" onclick="saveModel()">Download</button>
+                        </div>
+                        <div>
+                            <button type="button" style="width: 150px" class="btn btn-outline-warning" id="startPredicting" onclick="startPredicting()">Start Predicting</button>
+                            <button type="button" style="width: 150px" class="btn btn-outline-warning" id="stopPredicting" onclick="stopPredicting()">Stop Predicting</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -60,11 +80,9 @@
     <script src="example.js"></script>
     <script>
         $(window).on('load',function(){
-            var delayMs = 1500; // delay in milliseconds
-
             setTimeout(function(){
                 $('#myModal').modal('show');
-            }, delayMs);
+            }, 10);
         });
     </script>
 </html>
