@@ -1,7 +1,7 @@
 let webcamElement = document.getElementById('camera');
 let labels = [];
-let xs = null;
-let ys = null;
+let xs;
+let ys;
 let mobilenet;
 let model;
 let array = Array.from(Array(10), () => 0);
@@ -65,27 +65,23 @@ async function setup() {
 function addExample(example, label) {
     if (xs == null) {
         xs = tf.keep(example);
-        labels.push(label);
     } else {
         const oldX = xs;
         xs = tf.keep(oldX.concat(example, 0));
-        labels.push(label);
         oldX.dispose();
     }
+    labels.push(label);
 }
 
 function encodeLabels(numClasses) {
     for (let i = 0; i < labels.length; i++) {
+        const y = tf.tidy(
+            () => {
+                return tf.oneHot(tf.tensor1d([labels[i]]).toInt(), numClasses)
+            });
         if (ys == null) {
-            ys = tf.keep(tf.tidy(
-                () => {
-                    return tf.oneHot(tf.tensor1d([labels[i]]).toInt(), numClasses)
-                }));
+            ys = tf.keep(y);
         } else {
-            const y = tf.tidy(
-                () => {
-                    return tf.oneHot(tf.tensor1d([labels[i]]).toInt(), numClasses)
-                });
             const oldY = ys;
             ys = tf.keep(oldY.concat(y, 0));
             oldY.dispose();
@@ -124,7 +120,6 @@ async function train() {
     });
 }
 
-
 function handleButton(elem) {
     let label = parseInt(elem.id);
     array[label]++;
@@ -141,26 +136,19 @@ async function predict() {
             const predictions = model.predict(activation);
             return predictions.as1D().argMax();
         });
-        const classId = (await predictedClass.data())[0];
-        document.getElementById("prediction").innerText = classId;
+        document.getElementById("prediction").innerText = (await predictedClass.data())[0];
         predictedClass.dispose();
         await tf.nextFrame();
     }
 }
-
 
 function doTraining() {
     train();
     alert("Training Done!")
 }
 
-function startPredicting() {
-    isPredicting = true;
-    predict();
-}
-
-function stopPredicting() {
-    isPredicting = false;
+function setPredicting(predicting) {
+    isPredicting = predicting;
     predict();
 }
 
