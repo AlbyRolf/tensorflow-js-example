@@ -8,24 +8,7 @@ let array = Array.from(Array(10), () => 0);
 let isPredicting = false;
 const optimizer = tf.train.adam(0.0001);
 
-function capture() {
-    return tf.tidy(() => {
-        const webcamImage = tf.browser.fromPixels(webcamElement);
-        const reversedImage = webcamImage.reverse(1);
-        const croppedImage = cropImage(reversedImage);
-        const batchedImage = croppedImage.expandDims(0);
-        return batchedImage.toFloat().div(tf.scalar(127)).sub(tf.scalar(1));
-    });
-}
-
-function cropImage(img) {
-    const size = Math.min(img.shape[0], img.shape[1]);
-    const centerHeight = img.shape[0] / 2;
-    const beginHeight = centerHeight - (size / 2);
-    const centerWidth = img.shape[1] / 2;
-    const beginWidth = centerWidth - (size / 2);
-    return img.slice([beginHeight, beginWidth, 0], [size, size, 3]);
-}
+//================================= Web camera and MobileNet initialization =================================
 
 function adjustVideoSize(width, height) {
     const aspectRatio = width / height;
@@ -62,16 +45,34 @@ async function setup() {
     });
 }
 
-function addExample(example, label) {
-    if (xs == null) {
-        xs = tf.keep(example);
-    } else {
-        const oldX = xs;
-        xs = tf.keep(oldX.concat(example, 0));
-        oldX.dispose();
-    }
-    labels.push(label);
+async function loadMobilenet() {
+    const mobileNetModel = await tf.loadLayersModel('https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v1_1.0_224/model.json');
+    const layer = mobileNetModel.getLayer('conv_pw_13_relu');
+    mobilenet = tf.model({inputs: mobileNetModel.inputs, outputs: layer.output});
 }
+
+//================================= Frame capturing =========================================================
+
+function cropImage(img) {
+    const size = Math.min(img.shape[0], img.shape[1]);
+    const centerHeight = img.shape[0] / 2;
+    const beginHeight = centerHeight - (size / 2);
+    const centerWidth = img.shape[1] / 2;
+    const beginWidth = centerWidth - (size / 2);
+    return img.slice([beginHeight, beginWidth, 0], [size, size, 3]);
+}
+
+function capture() {
+    return tf.tidy(() => {
+        const webcamImage = tf.browser.fromPixels(webcamElement);
+        const reversedImage = webcamImage.reverse(1);
+        const croppedImage = cropImage(reversedImage);
+        const batchedImage = croppedImage.expandDims(0);
+        return batchedImage.toFloat().div(tf.scalar(127)).sub(tf.scalar(1));
+    });
+}
+
+//================================= Training model ==========================================================
 
 function encodeLabels(numClasses) {
     for (let i = 0; i < labels.length; i++) {
@@ -90,11 +91,6 @@ function encodeLabels(numClasses) {
     }
 }
 
-async function loadMobilenet() {
-    const mobileNetModel = await tf.loadLayersModel('https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v1_1.0_224/model.json');
-    const layer = mobileNetModel.getLayer('conv_pw_13_relu');
-    mobilenet = tf.model({inputs: mobileNetModel.inputs, outputs: layer.output});
-}
 
 async function train() {
     ys = null;
@@ -120,6 +116,24 @@ async function train() {
     });
 }
 
+function doTraining() {
+    train();
+    alert("Training Done!")
+}
+
+//================================= Sample data addition ====================================================
+
+function addExample(example, label) {
+    if (xs == null) {
+        xs = tf.keep(example);
+    } else {
+        const oldX = xs;
+        xs = tf.keep(oldX.concat(example, 0));
+        oldX.dispose();
+    }
+    labels.push(label);
+}
+
 function handleButton(elem) {
     let label = parseInt(elem.id);
     array[label]++;
@@ -127,6 +141,8 @@ function handleButton(elem) {
     const img = capture();
     addExample(mobilenet.predict(img), label);
 }
+
+//================================= Inference process =======================================================
 
 async function predict() {
     while (isPredicting) {
@@ -142,15 +158,12 @@ async function predict() {
     }
 }
 
-function doTraining() {
-    train();
-    alert("Training Done!")
-}
-
 function setPredicting(predicting) {
     isPredicting = predicting;
     predict();
 }
+
+//================================= Aux functions ===========================================================
 
 function saveModel() {
     model.save('downloads://my_model');
