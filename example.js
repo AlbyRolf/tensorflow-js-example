@@ -21,24 +21,19 @@ function adjustVideoSize(width, height) {
 
 async function setup() {
     return new Promise((resolve, reject) => {
-        navigator.getUserMedia = navigator.getUserMedia ||
-            navigator.webkitGetUserMedia || navigator.mozGetUserMedia ||
-            navigator.msGetUserMedia;
-        if (navigator.getUserMedia) {
-            navigator.getUserMedia(
-                {video: {width: 224, height: 224}},
-                stream => {
-                    webcamElement.srcObject = stream;
-                    webcamElement.addEventListener('loadeddata', async () => {
-                        adjustVideoSize(
-                            webcamElement.videoWidth,
-                            webcamElement.videoHeight);
-                        resolve();
-                    }, false);
-                },
-                error => {
-                    reject(error);
-                });
+        if (navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia(
+                {video: {width: 224, height: 224}}).then(stream => {
+                webcamElement.srcObject = stream;
+                webcamElement.addEventListener('loadeddata', async () => {
+                    adjustVideoSize(
+                        webcamElement.videoWidth,
+                        webcamElement.videoHeight);
+                    resolve();
+                }, false);
+            }).catch(error => {
+                reject(error);
+            });
         } else {
             reject();
         }
