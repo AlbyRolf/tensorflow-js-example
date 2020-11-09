@@ -150,7 +150,7 @@ function doTraining() {
     alert("Training Done!")
 }
 
-//================================= Single sample addition ==================================================
+//================================= Single training sample addition =========================================
 
 function addExample(example, label) {
     if (xs == null) {
