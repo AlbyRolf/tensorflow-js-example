@@ -1,4 +1,4 @@
-# TensorFlow.js Example
+# Number Hand Gestures Recognition Using TensorFlow.js
 [![medium](https://aleen42.github.io/badges/src/medium.svg)](https://dredwardhyde.medium.com/number-hand-gestures-recognition-using-tensorflow-js-618ff0e1df2)
 
  - [Web camera and MobileNet initialization](https://github.com/dredwardhyde/tensorflow-js-example/blob/main/example.js#L10)  
