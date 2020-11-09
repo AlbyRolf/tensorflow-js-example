@@ -2,8 +2,8 @@
 
  - [Web camera and MobileNet initialization](https://github.com/dredwardhyde/tensorflow-js-example/blob/main/example.js#L10)  
  - [Frame capturing](https://github.com/dredwardhyde/tensorflow-js-example/blob/main/example.js#L58)  
+ - [Capturing single training sample](https://github.com/dredwardhyde/tensorflow-js-example/blob/main/example.js#L153)  
  - [Training model](https://github.com/dredwardhyde/tensorflow-js-example/blob/main/example.js#L88)  
- - [Single training sample addition](https://github.com/dredwardhyde/tensorflow-js-example/blob/main/example.js#L153)  
  - [Inference process](https://github.com/dredwardhyde/tensorflow-js-example/blob/main/example.js#L180)  
   
 ### Results
