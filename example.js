@@ -6,7 +6,6 @@ let mobilenet;
 let model;
 let array = Array.from(Array(10), () => 0);
 let isPredicting = false;
-const optimizer = tf.train.adam(0.0001);
 
 //================================= Web camera and MobileNet initialization =================================
 
@@ -130,7 +129,7 @@ async function train() {
 
     // Compile the fine-tuning model using Adam optimizer
     // and categorical crossentropy loss function
-    model.compile({optimizer: optimizer, loss: 'categoricalCrossentropy'});
+    model.compile({optimizer: tf.train.adam(0.0001), loss: 'categoricalCrossentropy'});
     let loss = 0;
     // Train the model for 10 epochs and report
     // loss value after each epoch
@@ -151,7 +150,7 @@ function doTraining() {
     alert("Training Done!")
 }
 
-//================================= Single data sample addition =============================================
+//================================= Single sample addition ==================================================
 
 function addExample(example, label) {
     if (xs == null) {
@@ -164,6 +163,7 @@ function addExample(example, label) {
     labels.push(label);
 }
 
+// This function is called when user clicks one of the label buttons
 function handleButton(elem) {
     // Get the ground-truth label by the id
     // of the button that the user clicked
