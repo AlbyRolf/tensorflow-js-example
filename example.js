@@ -85,7 +85,7 @@ function capture() {
     });
 }
 
-//================================= Training model ==========================================================
+//================================= Model training ==========================================================
 
 function encodeLabels(numClasses) {
     for (let i = 0; i < labels.length; i++) {
@@ -150,7 +150,7 @@ function doTraining() {
     alert("Training Done!")
 }
 
-//================================= Capturing single training sample ========================================
+//================================= Creating one training sample ============================================
 
 function addExample(example, label) {
     if (xs == null) {
